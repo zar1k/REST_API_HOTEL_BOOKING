@@ -39,10 +39,10 @@ public class BookingServiceTest {
         Room room = this.roomRepository.save(new Room(666, Category.PRESIDENTIAL, 15000, Status.UNOCCUPIED));
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date startDate = df.parse("2017-09-14 13:57:24");
-        Date endDate = df.parse("2017-09-20 13:00:00");
-        Booking booking = this.service.create(new Booking(rooms, startDate, endDate, customer));
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date startDate = df.parse("2017-09-14 13:57:24.124");
+        Date endDate = df.parse("2017-09-20 13:00:00.124");
+        Booking booking = this.service.apply(new Booking(rooms, startDate, endDate, customer));
         List<Booking> result = this.service.getAll();
         assertTrue(result.contains(booking));
     }

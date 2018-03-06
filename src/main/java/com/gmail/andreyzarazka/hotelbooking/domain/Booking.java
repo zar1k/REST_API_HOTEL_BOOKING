@@ -12,7 +12,8 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
+    @JoinColumn(name = "room_id")
     private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "start_date")

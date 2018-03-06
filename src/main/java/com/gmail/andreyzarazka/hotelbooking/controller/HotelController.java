@@ -2,8 +2,11 @@ package com.gmail.andreyzarazka.hotelbooking.controller;
 
 import com.gmail.andreyzarazka.hotelbooking.domain.*;
 import com.gmail.andreyzarazka.hotelbooking.repository.AdditionalOptionsRepository;
+import com.gmail.andreyzarazka.hotelbooking.repository.BookingRepository;
+import com.gmail.andreyzarazka.hotelbooking.repository.CustomerRepository;
 import com.gmail.andreyzarazka.hotelbooking.repository.RoomRepository;
 import com.gmail.andreyzarazka.hotelbooking.service.AdditionalOptionsService;
+import com.gmail.andreyzarazka.hotelbooking.service.BookingService;
 import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,20 +17,30 @@ import java.util.List;
 @RestController
 public class HotelController {
 
-    private final RoomService service;
+    private final RoomService roomService;
     private final RoomRepository repository;
 
     private final AdditionalOptionsService optionsService;
     private final AdditionalOptionsRepository optionsRepository;
 
+    private final BookingRepository bookingRepository;
+    private final BookingService bookingService;
+
+    private final CustomerRepository customerRepository;
+
     @Autowired
-    public HotelController(RoomService service, RoomRepository repository,
+    public HotelController(RoomService roomService, RoomRepository repository,
                            AdditionalOptionsService optionsService,
-                           AdditionalOptionsRepository optionsRepository) {
-        this.service = service;
+                           AdditionalOptionsRepository optionsRepository, BookingRepository bookingRepository,
+                           BookingService bookingService, CustomerRepository customerRepository) {
+        this.roomService = roomService;
         this.repository = repository;
         this.optionsService = optionsService;
         this.optionsRepository = optionsRepository;
+        this.bookingRepository = bookingRepository;
+        this.bookingService = bookingService;
+        this.customerRepository = customerRepository;
+
     }
 
     @RequestMapping("/save")
@@ -58,16 +71,26 @@ public class HotelController {
 
     @GetMapping("/rooms")
     public List<Room> getAll() {
-        return this.service.getAll();
+        return this.roomService.getAll();
     }
 
     @GetMapping("/rooms/status/{status}")
     public List<Room> findByStatus(@PathVariable Status status) {
-        return this.service.getByStatus(status);
+        return this.roomService.getByStatus(status);
     }
 
     @GetMapping("/rooms/category/{category}")
     public List<Room> findByCategory(@PathVariable Category category) {
-        return this.service.getByCategory(category);
+        return this.roomService.getByCategory(category);
+    }
+
+    @PostMapping("/booking/save")
+    public void saveBooking(@RequestBody Booking booking) {
+        this.bookingService.apply(booking);
+    }
+
+    @GetMapping("/booking/{customerId}")
+    public List<Booking> findByCustomerId(@PathVariable int customerId) {
+        return this.bookingService.getByCustomer(customerId);
     }
 }

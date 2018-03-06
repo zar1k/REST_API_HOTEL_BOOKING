@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookingService {
     List<Booking> getAll();
 
-    Booking create(Booking booking);
+    Booking apply(Booking booking);
 
     List<Booking> getByCustomer(int customerId);
 

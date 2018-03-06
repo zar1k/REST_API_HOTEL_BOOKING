@@ -23,7 +23,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking create(Booking booking) {
+    public Booking apply(final Booking booking) {
         return this.repository.save(booking);
     }
 

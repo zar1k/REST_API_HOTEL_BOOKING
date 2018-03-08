@@ -50,7 +50,7 @@ Authentication and authorization are not included in the task.
 
 The project contains SQL-script to filling the database tables with the test data needed to test the application. The file is located: ```\src\main\resources\data.sql```.
 
-**Attention: the database tables are created automatically.**
+**Attention: the database tables are created automatically. Used H2 in-memory database**
 
 Before running an ``unit tests``, you need to rename the ``date.sql`` file.
 The file is located: ```\src\main\resources\data.sql```.

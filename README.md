@@ -56,6 +56,7 @@ Before running an ``unit tests``, you need to rename the ``date.sql`` file.
 The file is located: ```\src\main\resources\data.sql```.
 
 **The UML class diagram**
+
 ![uml](https://user-images.githubusercontent.com/14240692/37155001-c711cf30-22f2-11e8-83de-75b006634f9a.png)
 
 ## Hotel Booking API Documentation

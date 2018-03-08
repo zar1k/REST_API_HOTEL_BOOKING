@@ -1,6 +1,6 @@
 ## Test task. Create REST application Hotel booking
 
-###With capabilities (each represented by separate endpoint):
+### With capabilities (each represented by separate endpoint):
 
 1. View list of available rooms (room have a number, category, price, additional options like breakfast, cleaning with additional cost) for specified dates.
 
@@ -20,7 +20,7 @@ Tech stack: Java 8, Spring Boot, Spring MVC, Spring Data, Hibernate, H2, maven.
 
 Authentication and authorization are not included in the task.
 
-###Requirements:
+### Requirements:
 1. Source code must be stored on GitHub with access to the repository.
 
 2. The repository must contain file README.MD with instructions for launching the application and any other necessary documentation for the application (in English).
@@ -33,7 +33,7 @@ Authentication and authorization are not included in the task.
 
 6. Availability of UML class diagram is a plus.
 
- ###Evaluation criteria:
+ ### Evaluation criteria:
 * functional correctness according to the technical requirements,
 
 * readability, maintainability, and compliance of the code with OOP and SOLID principles,

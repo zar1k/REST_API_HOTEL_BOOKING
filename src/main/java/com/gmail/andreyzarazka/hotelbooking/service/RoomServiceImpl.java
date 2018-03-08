@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 @Service
 public class RoomServiceImpl implements RoomService {
     private RoomRepository repository;
@@ -24,12 +28,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> getByCategory(Category category) {
-        return this.repository.findByCategory(category);
+    public List<Room> getByCategory(String category) {
+        return this.repository.findByCategory(Category.valueOf(category.toUpperCase()));
     }
 
     @Override
-    public List<Room> getByStatus(Status status) {
-        return this.repository.findByStatus(status);
+    public List<Room> getByStatus(String status) {
+        return this.repository.findByStatus(Status.valueOf(status.toUpperCase()));
     }
 }

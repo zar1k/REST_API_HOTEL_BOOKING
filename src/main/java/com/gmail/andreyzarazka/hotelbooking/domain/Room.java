@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 @Entity(name = "room")
 public class Room {
     @Id
@@ -24,7 +28,8 @@ public class Room {
     @Column(name = "room_status")
     private Status status;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
+    @JoinColumn(name = "options_id")
     private List<AdditionalOptions> options = new ArrayList<>();
 
     public Room() {
@@ -94,10 +99,10 @@ public class Room {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Room)) return false;
-        Room room = (Room) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Room)) return false;
+        Room room = (Room) obj;
         return id == room.id &&
                 roomNumber == room.roomNumber &&
                 Double.compare(room.price, price) == 0 &&

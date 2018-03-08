@@ -3,6 +3,10 @@ package com.gmail.andreyzarazka.hotelbooking.domain;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 @Entity(name = "customer")
 public class Customer {
     @Id

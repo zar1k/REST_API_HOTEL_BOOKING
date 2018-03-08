@@ -7,6 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 public interface RoomRepository extends CrudRepository<Room, Integer> {
 
     List<Room> findByCategory(Category category);

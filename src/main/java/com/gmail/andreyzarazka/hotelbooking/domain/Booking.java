@@ -6,13 +6,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 @Entity(name = "booking")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "room_id")
     private List<Room> rooms = new ArrayList<>();
 
@@ -31,11 +35,11 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(List<Room> rooms, Date startDate, Date endDate, Customer customer) {
+    public Booking(Customer customer, List<Room> rooms, Date startDate, Date endDate ) {
+        this.customer = customer;
         this.rooms = rooms;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.customer = customer;
     }
 
     public int getId() {

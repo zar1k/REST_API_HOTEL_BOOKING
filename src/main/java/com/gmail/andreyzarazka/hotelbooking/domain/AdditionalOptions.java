@@ -3,6 +3,10 @@ package com.gmail.andreyzarazka.hotelbooking.domain;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author <a href="mailto:andreyzarazka@gmail.com">Andrew Zarazka</a>
+ * @since 08.03.2018
+ */
 @Entity(name = "additional_options")
 public class AdditionalOptions {
     @Id
@@ -48,10 +52,10 @@ public class AdditionalOptions {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AdditionalOptions)) return false;
-        AdditionalOptions that = (AdditionalOptions) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof AdditionalOptions)) return false;
+        AdditionalOptions that = (AdditionalOptions) obj;
         return id == that.id &&
                 Double.compare(that.price, price) == 0 &&
                 options == that.options;

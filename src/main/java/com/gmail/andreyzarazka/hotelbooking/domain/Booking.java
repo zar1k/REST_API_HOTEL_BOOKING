@@ -1,5 +1,7 @@
 package com.gmail.andreyzarazka.hotelbooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,10 +22,12 @@ public class Booking {
     @JoinColumn(name = "room_id")
     private List<Room> rooms = new ArrayList<>();
 
+    @JsonIgnore
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
+    @JsonIgnore
     @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
@@ -35,7 +39,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Customer customer, List<Room> rooms, Date startDate, Date endDate ) {
+    public Booking(Customer customer, List<Room> rooms, Date startDate, Date endDate) {
         this.customer = customer;
         this.rooms = rooms;
         this.startDate = startDate;

@@ -54,8 +54,8 @@ INSERT INTO room_options VALUES (10013, 10005);
 INSERT INTO room_options VALUES (10014, 10006);
 INSERT INTO room_options VALUES (10014, 10007);
 
-INSERT INTO customer VALUES (10000, 'Ukraine, Kiev', 'Ivan', 'Ivanov');
-INSERT INTO customer VALUES (10001, 'Ukraine, Kharkov', 'Olga', 'Fedorov');
+INSERT INTO customer VALUES (10000, 'Ukraine, Kiev', 'ivan@gmail.com', 'Ivan', 'Ivanov');
+INSERT INTO customer VALUES (10001, 'Ukraine, Kharkov', 'olga@gmail.com', 'Olga', 'Fedorov');
 
 INSERT INTO booking VALUES (10000, '2017-09-20 13:00:00.124', '2017-09-14 09:57:24.124', 10001);
 INSERT INTO booking VALUES (10001, '2018-03-09 13:00:00.124', '2018-03-05 08:01:24.124', 10000);

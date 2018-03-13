@@ -40,7 +40,7 @@ public class BookingServiceTest {
 
     @Test
     public void whenCreatingBookingWithoutAdditionalOptions() throws Exception {
-        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "Ukraine, Kiev"));
+        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev"));
 
         Room room = this.roomRepository.save(new Room(15, Category.PRESIDENTIAL, 15000, Status.OCCUPIED));
         List<Room> rooms = new ArrayList<>();
@@ -57,7 +57,7 @@ public class BookingServiceTest {
 
     @Test
     public void whenCreatingBookingWithAdditionalOptions() throws ParseException {
-        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "Ukraine, Kiev"));
+        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev"));
 
         AdditionalOptions breakfast = this.optionsRepository.save(new AdditionalOptions(TypeOptions.BREAKFAST, 500));
         AdditionalOptions cleaning = this.optionsRepository.save(new AdditionalOptions(TypeOptions.CLEANING, 400));
@@ -81,7 +81,7 @@ public class BookingServiceTest {
 
     @Test
     public void whenSearchBookingForCustomerId() throws Exception {
-        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "Ukraine, Kiev"));
+        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev"));
 
         Room room = this.roomRepository.save(new Room(15, Category.PRESIDENTIAL, 15000, Status.OCCUPIED));
         List<Room> rooms = new ArrayList<>();
@@ -99,7 +99,7 @@ public class BookingServiceTest {
     @Test
     @Transactional
     public void whenReceiveTotalPriceOfBookingForWholePeriod() throws Exception {
-        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "Ukraine, Kiev"));
+        Customer customer = this.customerRepository.save(new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev"));
 
         AdditionalOptions breakfast = this.optionsRepository.save(new AdditionalOptions(TypeOptions.BREAKFAST, 200));
         AdditionalOptions cleaning = this.optionsRepository.save(new AdditionalOptions(TypeOptions.CLEANING, 100));

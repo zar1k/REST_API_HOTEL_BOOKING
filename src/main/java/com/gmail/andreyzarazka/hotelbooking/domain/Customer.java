@@ -15,6 +15,7 @@ public class Customer {
 
     private String name;
     private String surname;
+    private String email;
     private String address;
 
     public Customer() {
@@ -24,9 +25,14 @@ public class Customer {
         this.id = id;
     }
 
-    public Customer(String name, String surname, String address) {
+    public Customer(final String email) {
+        this.email = email;
+    }
+
+    public Customer(String name, String surname, String email, String address) {
         this.name = name;
         this.surname = surname;
+        this.email = email;
         this.address = address;
     }
 
@@ -54,6 +60,14 @@ public class Customer {
         this.surname = surname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -63,19 +77,21 @@ public class Customer {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Customer)) return false;
-        Customer customer = (Customer) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
         return id == customer.id &&
                 Objects.equals(name, customer.name) &&
                 Objects.equals(surname, customer.surname) &&
+                Objects.equals(email, customer.email) &&
                 Objects.equals(address, customer.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, address);
+
+        return Objects.hash(id, name, surname, email, address);
     }
 
     @Override
@@ -84,6 +100,7 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }

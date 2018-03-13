@@ -1,8 +1,11 @@
 package com.gmail.andreyzarazka.hotelbooking.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmail.andreyzarazka.hotelbooking.controller.responce.Error;
+import com.gmail.andreyzarazka.hotelbooking.controller.responce.Success;
 import com.gmail.andreyzarazka.hotelbooking.domain.*;
 import com.gmail.andreyzarazka.hotelbooking.service.BookingService;
+import com.gmail.andreyzarazka.hotelbooking.service.AuthorizedCustomerService;
 import com.gmail.andreyzarazka.hotelbooking.service.CustomerService;
 import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
 import org.junit.Test;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,6 +44,9 @@ public class HotelControllerTest {
 
     @MockBean
     private CustomerService customerService;
+
+    @MockBean
+    private AuthorizedCustomerService listService;
 
     @Test
     public void whenExecutingSearchByStatus() throws Exception {
@@ -75,7 +82,7 @@ public class HotelControllerTest {
 
     @Test
     public void whenExecutingSearchBookingByIDCustomer() throws Exception {
-        Customer customer = new Customer("Ivan", "Ivanov", "Ukraine, Kiev");
+        Customer customer = new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev");
         Room room = new Room(15, Category.PRESIDENTIAL, 15000, Status.OCCUPIED);
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
@@ -107,6 +114,38 @@ public class HotelControllerTest {
                 status().isOk()
         ).andExpect(
                 content().string(mapper.writeValueAsString(totalPrice))
+        );
+    }
+
+    @Test
+    public void whenApplyToSaveCustomer() throws Exception {
+        Customer customer = new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev");
+        ObjectMapper mapper = new ObjectMapper();
+        given(this.listService.isAuthCustomer(customer.getEmail())).willReturn(false);
+        given(this.customerService.apply(customer)).willReturn(customer);
+        this.mvc.perform(
+                post("/customer").contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        mapper.writeValueAsString(customer)
+                )
+        ).andExpect(
+                status().isOk()
+        ).andExpect(
+                content().string(mapper.writeValueAsString(new Success<>(customer)))
+        );
+    }
+
+    @Test
+    public void whenCustomerIsAlreadyAddedToList() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        given(this.listService.isAuthCustomer("test@gmail.com")).willReturn(true);
+        this.mvc.perform(
+                post("/customer").contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        mapper.writeValueAsString(new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev"))
+                )
+        ).andExpect(
+                status().isOk()
+        ).andExpect(
+                content().string(mapper.writeValueAsString(new Error("Customer with this email test@gmail.com is already registered")))
         );
     }
 }

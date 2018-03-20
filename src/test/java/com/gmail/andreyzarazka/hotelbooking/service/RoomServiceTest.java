@@ -152,4 +152,26 @@ public class RoomServiceTest {
         List<Room> result = this.service.getByStatus("occupied");
         assertThat(actual, is(result));
     }
+
+    @Test
+    public void whenSearchRoomForRoomNumber() {
+        AdditionalOptions options1 = this.optionsRepository.save(new AdditionalOptions(TypeOptions.BREAKFAST, 100));
+        AdditionalOptions options2 = this.optionsRepository.save(new AdditionalOptions(TypeOptions.CLEANING, 50));
+        AdditionalOptions options3 = this.optionsRepository.save(new AdditionalOptions(TypeOptions.BREAKFAST, 200));
+        AdditionalOptions options4 = this.optionsRepository.save(new AdditionalOptions(TypeOptions.CLEANING, 100));
+
+        List<AdditionalOptions> list1 = new ArrayList<>();
+        list1.add(options1);
+        list1.add(options2);
+
+        List<AdditionalOptions> list2 = new ArrayList<>();
+        list2.add(options3);
+        list2.add(options4);
+
+        Room singleRoom = this.repository.save(new Room(100, Category.SINGLE, 1000, Status.UNOCCUPIED, list1));
+        Room doubleRoom = this.repository.save(new Room(200, Category.DOUBLE, 2000, Status.UNOCCUPIED, list2));
+
+        Room result = this.service.getByRoomNumber(100);
+        assertThat(singleRoom, is(result));
+    }
 }

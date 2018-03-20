@@ -17,4 +17,5 @@ public interface CustomerService {
     Customer getByCustomerId(int customerId);
 
     Customer getByCustomerEmail(String email);
+
 }

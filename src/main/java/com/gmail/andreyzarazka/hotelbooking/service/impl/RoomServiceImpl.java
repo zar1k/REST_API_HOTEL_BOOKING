@@ -1,9 +1,10 @@
-package com.gmail.andreyzarazka.hotelbooking.service;
+package com.gmail.andreyzarazka.hotelbooking.service.impl;
 
 import com.gmail.andreyzarazka.hotelbooking.domain.Category;
 import com.gmail.andreyzarazka.hotelbooking.domain.Room;
 import com.gmail.andreyzarazka.hotelbooking.domain.Status;
 import com.gmail.andreyzarazka.hotelbooking.repository.RoomRepository;
+import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<Room> getByStatus(String status) {
         return this.repository.findByStatus(Status.valueOf(status.toUpperCase()));
+    }
+
+    @Override
+    public Room getByRoomNumber(int roomNumber) {
+        return this.repository.findByRoomNumber(roomNumber);
     }
 }

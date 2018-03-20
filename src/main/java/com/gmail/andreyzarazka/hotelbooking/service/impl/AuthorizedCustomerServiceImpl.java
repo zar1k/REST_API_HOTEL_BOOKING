@@ -1,7 +1,8 @@
-package com.gmail.andreyzarazka.hotelbooking.service;
+package com.gmail.andreyzarazka.hotelbooking.service.impl;
 
-import com.gmail.andreyzarazka.hotelbooking.domain.Customer;
 import com.gmail.andreyzarazka.hotelbooking.repository.AuthorizedCustomerRepository;
+import com.gmail.andreyzarazka.hotelbooking.service.AuthorizedCustomerService;
+import com.gmail.andreyzarazka.hotelbooking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

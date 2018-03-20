@@ -6,10 +6,7 @@ import com.gmail.andreyzarazka.hotelbooking.controller.responce.Success;
 import com.gmail.andreyzarazka.hotelbooking.domain.Booking;
 import com.gmail.andreyzarazka.hotelbooking.domain.Customer;
 import com.gmail.andreyzarazka.hotelbooking.domain.Room;
-import com.gmail.andreyzarazka.hotelbooking.service.BookingService;
-import com.gmail.andreyzarazka.hotelbooking.service.AuthorizedCustomerService;
-import com.gmail.andreyzarazka.hotelbooking.service.CustomerService;
-import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
+import com.gmail.andreyzarazka.hotelbooking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +18,16 @@ public class HotelController {
     private final BookingService bookingService;
     private final CustomerService customerService;
     private final AuthorizedCustomerService authCustomerService;
+    private final BookingSuccessService successService;
 
     @Autowired
-    public HotelController(final RoomService roomService, final BookingService bookingService,
-                           final CustomerService customerService, final AuthorizedCustomerService authCustomerService) {
+    public HotelController(final RoomService roomService, final BookingService bookingService, final CustomerService customerService,
+                           final AuthorizedCustomerService authCustomerService, final BookingSuccessService successService) {
         this.roomService = roomService;
         this.bookingService = bookingService;
         this.customerService = customerService;
         this.authCustomerService = authCustomerService;
+        this.successService = successService;
     }
 
     @GetMapping("/rooms/status/{status}")
@@ -42,8 +41,14 @@ public class HotelController {
     }
 
     @PostMapping("/booking")
-    public void saveBooking(@RequestBody Booking booking) {
-        this.bookingService.apply(booking);
+    public Result applyBooking(@RequestBody Booking booking) {
+        final Result result;
+        if (!this.successService.isBookingSuccess(booking)) {
+            result = new Success<>(this.bookingService.apply(booking));
+        } else {
+            result = new Error(String.format("Booking are not accepted on these dates: %s and %s.", booking.getStartDate(), booking.getEndDate()));
+        }
+        return result;
     }
 
     @GetMapping("/booking/{customerId}")

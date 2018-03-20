@@ -1,10 +1,12 @@
-package com.gmail.andreyzarazka.hotelbooking.service;
+package com.gmail.andreyzarazka.hotelbooking.service.impl;
 
 import com.gmail.andreyzarazka.hotelbooking.domain.AdditionalOptions;
 import com.gmail.andreyzarazka.hotelbooking.domain.Booking;
 import com.gmail.andreyzarazka.hotelbooking.domain.Customer;
 import com.gmail.andreyzarazka.hotelbooking.domain.Room;
 import com.gmail.andreyzarazka.hotelbooking.repository.BookingRepository;
+import com.gmail.andreyzarazka.hotelbooking.service.BookingService;
+import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking apply(final Booking booking) {
+    public Booking apply(Booking booking) {
         return this.repository.save(booking);
     }
 

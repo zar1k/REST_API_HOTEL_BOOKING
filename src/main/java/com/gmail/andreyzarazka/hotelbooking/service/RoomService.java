@@ -9,9 +9,13 @@ import java.util.List;
  * @since 08.03.2018
  */
 public interface RoomService {
+
     List<Room> getAll();
 
     List<Room> getByCategory(String category);
 
     List<Room> getByStatus(String status);
+
+    Room getByRoomNumber(int roomNumber);
+
 }

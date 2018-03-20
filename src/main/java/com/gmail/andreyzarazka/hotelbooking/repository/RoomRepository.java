@@ -17,4 +17,6 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
 
     List<Room> findByStatus(Status status);
 
+    Room findByRoomNumber(int roomNumber);
+
 }

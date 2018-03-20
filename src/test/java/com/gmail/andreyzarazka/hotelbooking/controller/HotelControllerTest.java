@@ -4,16 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.andreyzarazka.hotelbooking.controller.responce.Error;
 import com.gmail.andreyzarazka.hotelbooking.controller.responce.Success;
 import com.gmail.andreyzarazka.hotelbooking.domain.*;
-import com.gmail.andreyzarazka.hotelbooking.service.BookingService;
-import com.gmail.andreyzarazka.hotelbooking.service.AuthorizedCustomerService;
-import com.gmail.andreyzarazka.hotelbooking.service.CustomerService;
-import com.gmail.andreyzarazka.hotelbooking.service.RoomService;
+import com.gmail.andreyzarazka.hotelbooking.service.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -47,6 +46,9 @@ public class HotelControllerTest {
 
     @MockBean
     private AuthorizedCustomerService listService;
+
+    @MockBean
+    private BookingSuccessService successService;
 
     @Test
     public void whenExecutingSearchByStatus() throws Exception {
@@ -146,6 +148,63 @@ public class HotelControllerTest {
                 status().isOk()
         ).andExpect(
                 content().string(mapper.writeValueAsString(new Error("Customer with this email test@gmail.com is already registered")))
+        );
+    }
+
+    @Ignore
+    @Test
+    public void whenApplyToSaveBooking() throws Exception {
+        Customer customer = new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev");
+
+        Room room = new Room(115, Category.PRESIDENTIAL, 15000, Status.OCCUPIED);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date startDate = df.parse("2017-09-15 09:57:24.124");
+        Date endDate = df.parse("2017-09-20 13:00:00.124");
+
+        Booking booking = new Booking(customer, rooms, startDate, endDate);
+
+        ObjectMapper mapper = new ObjectMapper();
+        given(this.successService.isBookingSuccess(booking)).willReturn(false);
+        given(this.bookingService.apply(booking)).willReturn(booking);
+        this.mvc.perform(
+                post("/booking").contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        mapper.writeValueAsString(booking)
+                )
+        ).andExpect(
+                status().isOk()
+        ).andExpect(
+                content().string(mapper.writeValueAsString(new Success<>(booking)))
+        );
+    }
+
+    @Ignore
+    @Test
+    public void whenBookingIsNotPossible() throws Exception {
+        Customer customer = new Customer("Ivan", "Ivanov", "test@gmail.com", "Ukraine, Kiev");
+
+        Room room = new Room(15, Category.PRESIDENTIAL, 15000, Status.OCCUPIED);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date startDate = df.parse("2017-09-15 09:57:24.124");
+        Date endDate = df.parse("2017-09-20 13:00:00.124");
+
+        Booking booking = new Booking(customer, rooms, startDate, endDate);
+
+        ObjectMapper mapper = new ObjectMapper();
+        given(this.successService.isBookingSuccess(booking)).willReturn(true);
+        this.mvc.perform(
+                post("/booking").contentType(MediaType.APPLICATION_JSON_UTF8).content(
+                        mapper.writeValueAsString(booking)
+                )
+        ).andExpect(
+                status().isOk()
+        ).andExpect(
+                content().string(mapper.writeValueAsString(new Error("Booking are not accepted on these dates: 2017-09-15 09:57:24.124 and 2017-09-20 13:00:00.124.")))
         );
     }
 }

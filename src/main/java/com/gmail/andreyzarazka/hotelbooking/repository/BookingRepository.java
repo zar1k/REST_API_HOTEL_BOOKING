@@ -2,6 +2,7 @@ package com.gmail.andreyzarazka.hotelbooking.repository;
 
 import com.gmail.andreyzarazka.hotelbooking.domain.Booking;
 import com.gmail.andreyzarazka.hotelbooking.domain.Customer;
+import com.gmail.andreyzarazka.hotelbooking.domain.Room;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,4 +14,5 @@ import java.util.List;
 public interface BookingRepository extends CrudRepository<Booking, Integer> {
 
     List<Booking> findByCustomer(Customer customer);
+
 }

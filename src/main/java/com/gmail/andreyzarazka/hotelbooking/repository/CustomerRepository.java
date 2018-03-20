@@ -12,4 +12,5 @@ import org.springframework.data.repository.query.Param;
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
     Customer findByEmail(String email);
+
 }

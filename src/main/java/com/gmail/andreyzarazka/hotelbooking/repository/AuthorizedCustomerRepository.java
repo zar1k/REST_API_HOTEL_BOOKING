@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface AuthorizedCustomerRepository extends CrudRepository<AuthorizedCustomer, Integer> {
 
     AuthorizedCustomer findByCustomer(Customer customer);
+
 }

@@ -35,6 +35,10 @@ public class Room {
     public Room() {
     }
 
+    public Room(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
     public Room(int roomNumber, Category category, double price, Status status) {
         this.roomNumber = roomNumber;
         this.category = category;

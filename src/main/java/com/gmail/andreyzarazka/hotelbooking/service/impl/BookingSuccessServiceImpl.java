@@ -54,6 +54,5 @@ public class BookingSuccessServiceImpl implements BookingSuccessService {
         return (cacheStart.compareTo(newStart) >= 0 && cacheStart.compareTo(newEnd) <= 0) ||
                 (cacheEnd.compareTo(newStart) >= 0 && cacheEnd.compareTo(newEnd) <= 0) ||
                 (newStart.compareTo(cacheStart) >= 0 && newStart.compareTo(cacheEnd) <= 0);
-
     }
 }

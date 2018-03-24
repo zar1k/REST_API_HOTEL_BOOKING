@@ -332,6 +332,7 @@ The file is located: ```\src\main\resources\data.sql```.
         "id": 1,
         "name": "Andrew",
         "surname": "Zarazka",
+        "email":"andreyzarazka@gmail.com"
         "address": "Ukraine, Kharkov"
     }
 ]

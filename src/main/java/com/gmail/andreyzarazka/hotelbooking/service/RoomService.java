@@ -16,6 +16,8 @@ public interface RoomService {
 
     List<Room> getByStatus(String status);
 
+    List<Room> getByDate(String date);
+
     Room getByRoomNumber(int roomNumber);
 
 }

@@ -3,8 +3,8 @@ package com.gmail.andreyzarazka.hotelbooking.service.impl;
 import com.gmail.andreyzarazka.hotelbooking.domain.Booking;
 import com.gmail.andreyzarazka.hotelbooking.domain.BookingSuccess;
 import com.gmail.andreyzarazka.hotelbooking.domain.Room;
+import com.gmail.andreyzarazka.hotelbooking.domain.Status;
 import com.gmail.andreyzarazka.hotelbooking.service.BookingSuccessService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -28,9 +28,17 @@ public class BookingSuccessServiceImpl implements BookingSuccessService {
                 BookingSuccess bookingSuccess = success.get(roomNumber);
                 List<Booking> bookingList = bookingSuccess.getBooking();
                 for (Booking cacheBooking : bookingList) {
-                    result = isDateInBetweenIncludingEndPoints(booking, cacheBooking);
+                    if (isDateInBetweenIncludingEndPoints(booking, cacheBooking)) {
+                        result = true;
+                        return result;
+                    } else {
+                        room.setStatus(Status.OCCUPIED);
+                        success.put(roomNumber, new BookingSuccess(Collections.singletonList(booking)));
+                        result = false;
+                    }
                 }
             } else {
+                room.setStatus(Status.OCCUPIED);
                 success.put(roomNumber, new BookingSuccess(Collections.singletonList(booking)));
                 result = false;
             }

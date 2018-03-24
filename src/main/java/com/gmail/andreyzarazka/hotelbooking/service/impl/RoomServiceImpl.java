@@ -39,6 +39,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> getByDate(String date) {
+        return null;
+    }
+
+    @Override
     public Room getByRoomNumber(int roomNumber) {
         return this.repository.findByRoomNumber(roomNumber);
     }

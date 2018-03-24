@@ -11,6 +11,6 @@ public class HotelBookingApplicationTests {
 
 	@Test
 	public void contextLoads() {
-	}
 
+	}
 }

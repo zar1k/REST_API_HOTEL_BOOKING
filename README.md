@@ -262,6 +262,7 @@ The file is located: ```\src\main\resources\data.sql```.
             "id": 10001,
             "name": "Olga",
             "surname": "Fedorov",
+            "email": "test@gmail.com",
             "address": "Ukraine, Kharkov"
         }
     }
@@ -314,6 +315,7 @@ The file is located: ```\src\main\resources\data.sql```.
             "id": 10001,
             "name": "Olga",
             "surname": "Fedorov",
+            "email": "test@gmail.com",
             "address": "Ukraine, Kharkov"
         }
     }
@@ -332,7 +334,7 @@ The file is located: ```\src\main\resources\data.sql```.
         "id": 1,
         "name": "Andrew",
         "surname": "Zarazka",
-        "email":"andreyzarazka@gmail.com"
+        "email": "andreyzarazka@gmail.com",
         "address": "Ukraine, Kharkov"
     }
 ]

@@ -57,7 +57,7 @@ The file is located: ```\src\main\resources\data.sql```.
 
 **The UML class diagram**
 
-![uml](https://user-images.githubusercontent.com/14240692/37155001-c711cf30-22f2-11e8-83de-75b006634f9a.png)
+![package domain](https://user-images.githubusercontent.com/14240692/37863877-f02118dc-2f76-11e8-83e2-913bdb4380b0.png)
 
 ## Hotel Booking API Documentation
 
